@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 
 class App extends Component {
   render() {
+    // return中含有JSX语法
     return (
       <div className="App">
         Hello World.
