@@ -4,7 +4,7 @@ class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: 'hello',
+      inputValue: '',
       list: []
     };
 
@@ -13,6 +13,7 @@ class TodoList extends Component {
   render() {
     // render函数返回的JSX必须包裹在一个大的元素当中,如果不想显示外层元素，可以用Fragment作为占位符
     // JSX中计算js表达式，需要加一对{}
+    // 默认this为undefined, 需要通过bind方法设置this为当前TodoList实例
     return (
       <Fragment>
         <div>
@@ -20,21 +21,51 @@ class TodoList extends Component {
             value={this.state.inputValue}
             onChange={this.handleInputChange.bind(this)}
           />
-          <button>提交</button>
+          <button onClick={this.handleBtnClick.bind(this)}>提交</button>
         </div>
         <ul>
-          <li>学英语</li>
-          <li>Learning English</li>
+          {
+            this.state.list.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  onClick={this.handleItemDelete.bind(this, index)}>{item}
+                </li>
+              )
+            })
+          }
         </ul>
       </Fragment>
     )
   }
 
+  // 处理输入事件
   handleInputChange(e) {
     this.setState({
-      inputValue : e.target.value
+      inputValue: e.target.value
     })
   }
+
+  // 处理提交按钮点击事件
+  handleBtnClick(e) {
+    this.setState({
+      list: [...this.state.list, this.state.inputValue],
+      inputValue: ""
+    })
+  }
+
+  // 点击项删除
+  handleItemDelete(index) {
+    // immutable:
+    // state不允许我们做任何改变,需要进行一个拷贝再操作
+    const list = [...this.state.list];
+    // splice方法,从index序列开始,删除1项
+    list.splice(index,1);
+    this.setState({
+      list : list
+    })
+  }
+
 }
 
 export default TodoList;
