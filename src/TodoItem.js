@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class TodoItem extends Component {
 
@@ -9,10 +10,10 @@ class TodoItem extends Component {
     }
 
     render() {
-        const { content } = this.props;
+        const { content, test } = this.props;
         return (
             <li onClick={this.handleClick}>
-                {content}
+                {test} {content}
             </li>
         )
     }
@@ -23,6 +24,19 @@ class TodoItem extends Component {
         const { deleteItem, index } = this.props;
         deleteItem(index);
     }
+
+}
+
+// 使用propTypes对输入值类型进行校验
+TodoItem.propTypes = {
+    content: PropTypes.string,
+    deleteItem: PropTypes.func,
+    index: PropTypes.number.isRequired
+}
+
+// 如果没有给对应的属性传值, 则定义默认值
+TodoItem.defaultProps = {
+    test: "项目:"
 }
 
 export default TodoItem;
