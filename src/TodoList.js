@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
-import './style.css'
+import TodoItem from './TodoItem';
+import './style.css';
 
+// todolist类
 class TodoList extends Component {
   constructor(props) {
     super(props);
@@ -8,8 +10,12 @@ class TodoList extends Component {
       inputValue: '',
       list: []
     };
-
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleBtnClick = this.handleBtnClick.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
   }
+
+
 
   render() {
     // render函数返回的JSX必须包裹在一个大的元素当中,如果不想显示外层元素，可以用Fragment作为占位符
@@ -25,54 +31,62 @@ class TodoList extends Component {
             id="insertArea"
             className="input"
             value={this.state.inputValue}
-            onChange={this.handleInputChange.bind(this)}
+            onChange={this.handleInputChange}
           />
-          <button onClick={this.handleBtnClick.bind(this)}>提交</button>
+          <button onClick={this.handleBtnClick}>提交</button>
         </div>
         <ul>
-          {
-            this.state.list.map((item, index) => {
-              return (
-                <li
-                  key={index}
-                  onClick={this.handleItemDelete.bind(this, index)}>
-                  {/* 如果想内容不被转义, 可以用dangerouslySetInnerHtml方法:
-                  dangerouslySetInnerHTML = {{ __html: item }}
-                  */}
-                  {item}
-                </li>
-              )
-            })
-          }
+          {this.getTodoItem()}
         </ul>
       </Fragment>
     )
   }
 
+
+  getTodoItem() {
+    return this.state.list.map((item, index) => {
+      return (
+        // 父组件通过属性的方式传值给子组件
+        <TodoItem
+          content={item}
+          key={index}
+          index={index}
+          deleteItem={this.handleItemDelete}
+        />
+      )
+    })
+  }
+
   // 处理输入事件
   handleInputChange(e) {
-    this.setState({
-      inputValue: e.target.value
-    })
+    // 新版react的setState方法应该传入一个函数
+    const value = e.target.value;
+    this.setState(() => ({
+      inputValue: value
+    }))
+    // this.setState({
+    //   inputValue: e.target.value
+    // })
   }
 
   // 处理提交按钮点击事件
   handleBtnClick(e) {
-    this.setState({
-      list: [...this.state.list, this.state.inputValue],
+    // setState函数中可以有prevState参数,表示没修改之前的state状态
+    this.setState((prevState) => ({
+      list: [...prevState.list, prevState.inputValue],
       inputValue: ""
-    })
+    }))
   }
 
   // 点击项删除
   handleItemDelete(index) {
     // react框架的immutable概念:
     // react中的state不允许我们做任何改变, 需要进行一个拷贝再操作
-    const list = [...this.state.list];
-    // splice方法,从index序列开始,删除1项
-    list.splice(index, 1);
-    this.setState({
-      list: list
+    this.setState((prevState) => {
+      const list = [...prevState.list];
+      // splice方法, 从index序列开始,删除1项
+      list.splice(index, 1);
+      return { list }
     })
   }
 
