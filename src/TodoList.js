@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem';
+import Test from './Test'
 import './style.css';
 
 // todolist类
 class TodoList extends Component {
   constructor(props) {
     super(props);
+    // 当组件的state或者props发生改变时,render函数就会重新执行,使得页面发生变化
     this.state = {
       inputValue: '',
       list: []
@@ -21,6 +23,9 @@ class TodoList extends Component {
     // render函数返回的JSX必须包裹在一个大的元素当中,如果不想显示外层元素，可以用Fragment作为占位符
     // JSX中计算js表达式，需要加一对{}
     // 默认this为undefined, 需要通过bind方法设置this为当前TodoList实例
+    console.log("main render");
+    // JSX真实的顺序: JSX -> JS对象(虚拟DOM) -> 真实的DOM
+    // JSX本质是React.createElement('div', {id: 'item'}, 'item')
     return (
       <Fragment>
         <div>
@@ -38,6 +43,7 @@ class TodoList extends Component {
         <ul>
           {this.getTodoItem()}
         </ul>
+        <Test content = {this.state.inputValue} />
       </Fragment>
     )
   }
