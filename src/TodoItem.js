@@ -25,6 +25,16 @@ class TodoItem extends Component {
         deleteItem(index);
     }
 
+    // 当一个组件从父组件接收参数,只要父组件的render函数被执行了,子组件的这个生命周期函数就会执行
+    // 如果这个组件第一次存在于父组件中,不会执行
+    // 如果这个组件之前已经存在父组件中,才会执行
+    componentWillReceiveProps() {
+        console.log("child componentWillReceiveProps")
+    }
+
+    componentWillUnmount(){
+        console.log("child componentWillUnmount");
+    }
 }
 
 // 使用propTypes对输入值类型进行校验
