@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem';
+import axios from 'axios'
 import './style.css';
 
 // todolist类
@@ -24,7 +25,6 @@ class TodoList extends Component {
     // 默认this为undefined, 需要通过bind方法设置this为当前TodoList实例
     // JSX真实的顺序: JSX -> JS对象(虚拟DOM) -> 真实的DOM
     // JSX本质是React.createElement('div', {id: 'item'}, 'item')
-    console.log("render");
     return (
       <Fragment>
         <div>
@@ -37,42 +37,22 @@ class TodoList extends Component {
             className="input"
             value={this.state.inputValue}
             onChange={this.handleInputChange}
-            ref={(input) => { this.input = input }}
           />
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
-        <ul ref={(ul) => { this.ul = ul }}>
+        <ul>
           {this.getTodoItem()}
         </ul>
       </Fragment>
     )
   }
 
-  // 组件挂载之后执行
   componentDidMount() {
-    console.log("componentDidMount");
+    axios.get('/api/todolist')
+      .then(() => { alert('succ') })
+      .catch(() => { alert('error') });
   }
 
-  // 当组件即将被挂载到页面的时候执行
-  componentWillMount() {
-    console.log("componentWillMount");
-  }
-
-  // 组件被更新之前会被自动执行
-  shouldComponentUpdate() {
-    console.log("shouldComponentUpdate");
-    return true
-  }
-
-  // 组件被更新之前会被自动执行
-  componentWillUpdate() {
-    console.log("componentWillUpdate");
-  }
-
-  // 组件更新之后自动执行
-  componentDidUpdate() {
-    console.log("componentDidUpdate");
-  }
 
   getTodoItem() {
     return this.state.list.map((item, index) => {
@@ -89,15 +69,12 @@ class TodoList extends Component {
   }
 
   // 处理输入事件
-  handleInputChange() {
+  handleInputChange(e) {
     // 新版react的setState方法应该传入一个函数
-    const value = this.input.value;
+    const value = e.target.value;
     this.setState(() => ({
       inputValue: value
     }))
-    // this.setState({
-    //   inputValue: e.target.value
-    // })
   }
 
   // 处理提交按钮点击事件
@@ -107,9 +84,7 @@ class TodoList extends Component {
     this.setState((prevState) => ({
       list: [...prevState.list, prevState.inputValue],
       inputValue: ""
-    }), () => {
-      console.log(this.ul.querySelectorAll('li').length);
-    })
+    }))
   }
 
   // 点击项删除
