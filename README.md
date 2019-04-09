@@ -19,6 +19,10 @@ react组件的四个生命周期:
 ## 生命周期函数应用
 1. *子组件频繁渲染问题*: 由于父组件渲染时, 子组件的props和state即使没有发生变化,也会强制执行`render()`, 那么可以利用`shouldComponentUpdate(nextProps, nextState)`生命周期函数, 比对`nextProps`或者`nextState`与现有值的情况, 从而自由选择返回true或者false控制渲染.
 2. *AJAX请求发送问题*: 异步获取AJAX请求数据, 放在`componentDidMount()`生命周期函数中, 只会执行一遍, 而且在`render()`函数运行之前, 在react中异步发送ajax请求可以使用`axios`库, 安装方式为`npm install axios`, 调用方式为:  
-```axios.get('/api/todolist')
+```JavaScript
+    axios.get('/api/todolist')
       .then(() => { alert('succ') })
-      .catch(() => { alert('error') });```
+      .catch(() => { alert('error') });
+```
+
+  
