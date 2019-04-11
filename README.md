@@ -38,7 +38,7 @@ react组件的四个生命周期:
 
 ## 使用react-transition-group绘制动画
 
-[react-transition-group](https://github.com/reactjs/react-transition-group)是一个动画插件, 点击进入[主文档](https://reactcommunity.org/react-transition-group/), npm中的安装命令为`npm install react-transition-group --save`, 在项目中的导入方式如下:
+[react-transition-group](https://github.com/reactjs/react-transition-group)是一个动画插件, [demo文档](https://reactcommunity.org/react-transition-group/)里面有详细介绍, 在npm中的安装命令为`npm install react-transition-group --save`, 项目中的导入方式如下:
 
 ```JavaScript
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -69,3 +69,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
   }
 </TransitionGroup>
 ```
+
+## 数据层框架Redux
+
+**React**只是一个视图层框架, 在大型项目中组件之间的传值会变得十分复杂, 因此需要一个数据层框架进行辅助. **Redux**则是利用一个公共的存储区域`Store`存值, 直接从中调用数据.  
+*Redux = Reducer + Flux*
