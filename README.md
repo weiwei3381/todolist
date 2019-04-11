@@ -30,3 +30,8 @@ react组件的四个生命周期:
       .then(() => { alert('succ') })
       .catch(() => { alert('error') });
 ```
+
+## 使用Charles进行数据模拟
+
+[Charles](https://www.charlesproxy.com)是一款全平台代理抓包软件, win下安装后无需配置就可以使用, 不过在使用中发现无法抓取localhost的包, 因此在使用中需要使用网络地址, 例如`192.168.43.6`, 这就意味着在不联网的单机情况下没有办法模拟api.  
+在模拟api时, 利用的是Charles中的`tools`下的`local map`功能, 把地址转到特定的json文件实现模拟后端.

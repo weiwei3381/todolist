@@ -50,7 +50,11 @@ class TodoList extends Component {
   // 组件挂载后使用ajax请求
   componentDidMount() {
     axios.get('/api/todolist')
-      .then(() => { alert('success') })
+      .then((res) => {
+        this.setState(() => ({
+          list: [...res.data]
+        }));
+      })
       .catch(() => { alert('error') });
   }
 
