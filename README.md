@@ -73,4 +73,12 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 ## 数据层框架Redux
 
 **React**只是一个视图层框架, 在大型项目中组件之间的传值会变得十分复杂, 因此需要一个数据层框架进行辅助. **Redux**则是利用一个公共的存储区域`Store`存值, 直接从中调用数据.  
-*Redux = Reducer + Flux*
+
+*Redux = Reducer + Flux*, Redux的前身是facebook开源的Flux框架, 不过因为存在一些问题, 改进加入了Reducer功能, 形成了现在的Redux框架.
+
+Redux的工作流程如下:  
+1. React Component(*借书的人*): React中的组件
+2. Action Creator(*借书的请求*): React Component(*借书的人*)发起想要获取特定State(*特定书籍*)的请求
+3. Store(*图书管理员*): 具有查看所有State(*特定书籍*)的权限
+4. Reducers(*图书索引*): Store(*图书管理员*)查询或者更新Reducers(*图书索引*)找到对应的State(*特定书籍*)
+
