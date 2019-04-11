@@ -35,3 +35,37 @@ react组件的四个生命周期:
 
 [Charles](https://www.charlesproxy.com)是一款全平台代理抓包软件, win下安装后无需配置就可以使用, 不过在使用中发现无法抓取localhost的包, 因此在使用中需要使用网络地址, 例如`192.168.43.6`, 这就意味着在不联网的单机情况下没有办法模拟api.  
 在模拟api时, 利用的是Charles中的`tools`下的`local map`功能, 把地址转到特定的json文件实现模拟后端.
+
+## 使用react-transition-group绘制动画
+
+[react-transition-group](https://github.com/reactjs/react-transition-group)是一个动画插件, 点击进入[主文档](https://reactcommunity.org/react-transition-group/), npm中的安装命令为`npm install react-transition-group --save`, 在项目中的导入方式如下:
+
+```JavaScript
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+```
+
+具体demo可以查看文档中的事例, 如果需要对多个节点使用动画, 需要使用`TransitionGroup`, 代码片段如下:
+
+```jsx
+<TransitionGroup>
+  {
+    this.state.list.map((item, index) => {
+      return (
+        <CSSTransition  key={index}
+          // 入场动画的状态值
+          // in={this.state.show}
+          // 动画执行时间
+          timeout={1000}
+          // 设置css前缀
+          classNames='fade'
+          unmountOnExit
+          onEntered={(el) => { el.style.color = 'blue' }}
+          appear={true}
+        >
+          <div>{item}</div>
+        </CSSTransition>
+      )
+    })
+  }
+</TransitionGroup>
+```
