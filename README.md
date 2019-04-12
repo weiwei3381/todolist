@@ -1,5 +1,13 @@
 # React入门与实战
 
+## NPM的优化设置
+
+为了快速安装包, 首先设置npm的安装源, 设置为淘宝源, 命令如下:
+
+```bash
+npm config set registry http://registry.npm.taobao.org
+```
+
 ## 生命周期函数
 
 生命周期函数的定义:是指在某个时刻组件会**自动调用执行**的函数.
@@ -76,9 +84,14 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 *Redux = Reducer + Flux*, Redux的前身是facebook开源的Flux框架, 不过因为存在一些问题, 改进加入了Reducer功能, 形成了现在的Redux框架.
 
-Redux的工作流程如下:  
+Redux的工作流程如下:
+
 1. React Component(*借书的人*): React中的组件
 2. Action Creator(*借书的请求*): React Component(*借书的人*)发起想要获取特定State(*特定书籍*)的请求
 3. Store(*图书管理员*): 具有查看所有State(*特定书籍*)的权限
 4. Reducers(*图书索引*): Store(*图书管理员*)查询或者更新Reducers(*图书索引*)找到对应的State(*特定书籍*)
 
+## 使用ant-design构建更加美观的todolist
+
+[ant-design](https://ant.design/index-cn)是蚂蚁金服团队开源的一套UI框架, 安装方式为: `npm install antd --save`  
+安装完成后, 引入样式文件`import 'antd/dist/antd.css'`
