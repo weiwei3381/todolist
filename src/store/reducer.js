@@ -1,4 +1,4 @@
-// 初始返回值
+// 默认值
 const defaultState = {
     inputValue: '',
     list: []
@@ -15,6 +15,10 @@ export default (state = defaultState, action) =>{
         let newState = JSON.parse(JSON.stringify(state));
         newState.list.push(newState.inputValue);
         newState.inputValue = "";
+        return newState
+    }else if(action.type === "delete_todo_item"){
+        let newState = JSON.parse(JSON.stringify(state));
+        newState.list.splice(action.index,1);
         return newState
     }
     return state;
