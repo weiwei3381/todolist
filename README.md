@@ -95,3 +95,43 @@ Redux的工作流程如下:
 
 [ant-design](https://ant.design/index-cn)是蚂蚁金服团队开源的一套UI框架, 安装方式为: `npm install antd --save`  
 安装完成后, 引入样式文件`import 'antd/dist/antd.css'`
+对于每种类型的控件, 可以直接在项目中引入`import { Input, Button, List } from 'antd'`, 然后使用即可,在[官方文档](https://ant.design/docs/react/introduce-cn)中可以查看每种控件使用方法, 其中设置每种类型组件的style需要使用json格式, 示例代码如下:
+
+```javascript
+<Input placeholder="todo info" style={{ width: "300px", marginRight: "10px" }} />
+<Button type="primary">提交</Button>
+<List
+    style= {{marginTop: '10px', width: "380px"}}
+    bordered
+    dataSource={data}
+    renderItem={item => (<List.Item>{item}</List.Item>)}
+/>
+```
+
+## Redux框架的Store创建
+
+首先在项目源码目录创建`store`文件夹, 然后在其中建立`index.js`文件, 这个文件就是store代码存放的位置. 创建store代码如下:
+
+```javascript
+import {createStore} from 'redux';
+import reducer from './reducer'
+
+const store = createStore(reducer);
+
+export default store;
+```
+
+可以看到,在store创建时传入了reducer, 因此创建reducer, 新建`reducer.js`, reducer的返回值必须是一个函数, 示例代码如下:
+
+```javascript
+// 初始返回值
+const defaultState = {
+    inputValue: '123',
+    list: [1,2]
+};
+
+export default (state = defaultState, action) =>{
+    return state;
+}
+```
+然后可以在页面中使用store了, 导入`import store from './store'`之后, 可以使用`store.getState()`方法取到值
