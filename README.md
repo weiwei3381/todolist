@@ -97,7 +97,7 @@ Redux的工作流程如下:
 安装完成后, 引入样式文件`import 'antd/dist/antd.css'`
 对于每种类型的控件, 可以直接在项目中引入`import { Input, Button, List } from 'antd'`, 然后使用即可,在[官方文档](https://ant.design/docs/react/introduce-cn)中可以查看每种控件使用方法, 其中设置每种类型组件的style需要使用json格式, 示例代码如下:
 
-```javascript
+```jsx
 <Input placeholder="todo info" style={{ width: "300px", marginRight: "10px" }} />
 <Button type="primary">提交</Button>
 <List
@@ -134,4 +134,9 @@ export default (state = defaultState, action) =>{
     return state;
 }
 ```
-然后可以在页面中使用store了, 导入`import store from './store'`之后, 可以使用`store.getState()`方法取到值
+
+然后可以在页面中使用store了, 导入`import store from './store'`之后, 可以使用`store.getState()`方法取到值.
+
+## redux修改State值
+
+创建state和action, 利用`dispatch`方法转发给store, store会把数据交给reducer返回的函数进行处理, 在reducer中有一个限制,可以接受和返回state, 但是**绝不能**修改state. store发生变化之后, 可以使用`store.subscribe(this.handleStoreChange)`进行处理.
