@@ -139,4 +139,5 @@ export default (state = defaultState, action) =>{
 
 ## redux修改State值
 
-创建state和action, 利用`dispatch`方法转发给store, store会把数据交给reducer返回的函数进行处理, 在reducer中有一个限制,可以接受和返回state, 但是**绝不能**修改state. store发生变化之后, 可以使用`store.subscribe(this.handleStoreChange)`进行处理.
+创建state和action, 利用`dispatch`方法转发给store, store会把数据交给reducer返回的函数进行处理, 在reducer中有一个限制,可以接受和返回state, 但是**绝不能**修改state. store发生变化之后, 可以使用`store.subscribe(this.handleStoreChange)`进行处理.  
+定义`actionTypes`文件, 将所有的action对应的字符串定义成常量, 可以避免拼写错误造成的bug, 并且IDE中也能进行自动提示.
