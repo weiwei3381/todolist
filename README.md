@@ -141,4 +141,16 @@ export default (state = defaultState, action) =>{
 
 创建state和action, 利用`dispatch`方法转发给store, store会把数据交给reducer返回的函数进行处理, 在reducer中有一个限制,可以接受和返回state, 但是**绝不能**修改state. store发生变化之后, 可以使用`store.subscribe(this.handleStoreChange)`进行处理.  
 定义`actionTypes.js`文件, 将所有的action对应的字符串定义成常量, 可以避免拼写错误造成的bug, 并且IDE中也能进行自动提示.  
-定义`actionCreators.js`文件, 将所有action生成的过程抽取成函数, 这样可以把散落在代码中的action都放到一个地方进行管理. 
+定义`actionCreators.js`文件, 将所有action生成的过程抽取成函数, 这样可以把散落在代码中的action都放到一个地方进行管理.
+
+## redux基础知识点总结
+
+1. redux的三原则
+    1. **store是唯一的**. 整个项目只定义一个store目录, 所有页面都使用的是一个store实例, 这是典型的单例模式.
+    2. **只有store能够改变自己的内容**. reducer可以接收store中的state, 但是不能更改state, 只能利用深拷贝获取一个新state, 然后在新的state上进行修改, 然后将新state返回给store, 所有state的更新都是有store完成.
+    3. **reducer必须是纯函数**. 所谓纯函数是指*给定固定的输入, 就一定会有固定的输出, 而且不会有任何的副作用*, 其中*固定输入*是指在reducer函数中, 不能有跟系统时间, 随机值, ajax请求等内容, 因为这样会使得返回值不受控制, 不固定. *副作用*是指对传入的参数的进行修改, 这就叫做产生副作用.
+2. redux中的核心api
+   1. `createStore()`可以帮助我们创建store, 需要传入reducer
+   2. `store.dispatch()`可以帮助我们派发action.
+   3. `store.getState`可以获取到store中的所有数据内容.
+   4. `store.subscribe`可以订阅store的改变, 需要传入回调函数, 一旦store改变, 回调函数就会执行.
