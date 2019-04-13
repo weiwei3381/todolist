@@ -171,3 +171,26 @@ const TodoListUI = (props) => {
   return <div>{props.inputValue}</div>
 }
 ```
+
+## redux的中间件redux-thunk
+
+redux的中间件需要在创建store的函数中引入, 主要目的是让转发的action可以返回一个**函数** (之前是必须为一个对象), 如果store发现转发的是一个函数, 则自动执行函数, 函数默认自带`dispatch`方法, 因此可以利用这个特性进行异步操作, 将所有异步操作集中到action中尽心管理, 同时也方便自动化测试.  
+需要注意的是, 如果同时使用`redux-thunk`和redux插件, 则需要在store创建的时候进行一些操作, 示例代码如下:
+
+```javascript
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './reducer'
+
+// 为了让thunk和redux插件同时使用, 下面代码片段摘录自github项目(https://github.com/zalmoxisus/redux-devtools-extension)上的说明
+const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        }) : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(thunk), );
+
+const store = createStore(reducer, enhancer);
+
+export default store;
+```
