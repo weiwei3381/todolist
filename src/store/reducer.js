@@ -1,4 +1,4 @@
-import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM} from './actionTypes'
+import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_LIST} from './actionTypes'
 
 
 // 默认值
@@ -23,6 +23,11 @@ export default (state = defaultState, action) =>{
         let newState = JSON.parse(JSON.stringify(state));
         newState.list.splice(action.index,1);
         return newState
+    }else if(action.type === INIT_LIST){
+        return {
+            inputValue: "",
+            list: action.list
+        }
     }
     return state;
 }
