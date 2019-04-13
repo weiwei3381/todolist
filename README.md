@@ -163,4 +163,11 @@ export default (state = defaultState, action) =>{
 renderItem={(item, index) => (<List.Item onClick={(index) => {this.props.handleItemDelete(index)}}>{item}</List.Item>)}
 ```
 
-这里面为了传递`index`变量, 在onClick事件中使用箭头函数传入变量, 然后使用带变量的函数.
+这里面为了传递`index`变量, 在onClick事件中使用箭头函数传入变量, 然后使用带变量的函数.  
+**无状态组件**: 当一个组件只有render函数时, 可以使用一个无状态组件替换, 无状态组件的性能比普通组件好, 示例代码如下:
+
+```javascript
+const TodoListUI = (props) => {
+  return <div>{props.inputValue}</div>
+}
+```
