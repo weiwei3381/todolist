@@ -154,3 +154,13 @@ export default (state = defaultState, action) =>{
    2. `store.dispatch()`可以帮助我们派发action.
    3. `store.getState`可以获取到store中的所有数据内容.
    4. `store.subscribe`可以订阅store的改变, 需要传入回调函数, 一旦store改变, 回调函数就会执行.
+
+## UI组件和容器组件
+
+现有的代码中, UI和逻辑代码交织在一起. 可以将UI和逻辑进行分离, 新建`TodoListUI.js`类, 然后把所有需要的函数和变量通过属性传值的方式进行, 需要注意的是, 如果传递的函数具有参数, 则需要用下面这种写法:  
+
+```javascript
+renderItem={(item, index) => (<List.Item onClick={(index) => {this.props.handleItemDelete(index)}}>{item}</List.Item>)}
+```
+
+这里面为了传递`index`变量, 在onClick事件中使用箭头函数传入变量, 然后使用带变量的函数.
