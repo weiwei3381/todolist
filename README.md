@@ -200,4 +200,82 @@ redux中间件指的是文件操作在Store和action中间, 简答来说就是�
 ## Redux-saga中间件使用
 
 redux-thunk是将ajax请求和action放在一起, 但是如果想把ajax异步请求单独放在一块, 可以使用[redux-saga](https://github.com/redux-saga/redux-saga), 这个中间件可以把异步请求放到一个文件夹.  
-原因在于redux-saga配置完成后, 转发的action除了store能接收以外, `sagas.js`文件也能收到, 这样就可以进行处理.
+原因在于redux-saga配置完成后, 转发的action除了store能接收以外, `sagas.js`文件也能收到, 这样就可以进行处理.  
+
+## react-redux的使用
+
+**react-redux**是一个方便redux使用的插件, 其中有一些核心组件:
+
+1. Provider是react-redux的一个核心组件, 它提供一个连接器, 使得里面所有的组件都有能力获取到store里面的数据, 示例代码为:
+
+   ```javascript
+    import { Provider } from 'react-redux';
+    import store from './store';
+
+    // Provider是react-redux的一个核心组件, 它提供一个连接器, 使得里面所有的组件都有能力获取到store里面的数据
+    const App = (
+        <Provider store={store}>
+            <TodoList />
+        </Provider>
+    )
+    ReactDOM.render(App, document.getElementById('root'));
+   ```
+
+2. connect方法是react-redux的一个核心功能, 利用connect方法, 可以把UI组件和映射进行绑定, 生成容器组件, 示例代码如下:
+
+  ```javascript
+const TodoList = (props)=>{
+    // 结构赋值
+    const { inputValue, changeInputValue, handleBtnClick, list } = props;
+
+    return (
+        <div>
+            <div>
+                <input
+                    value={inputValue}
+                    onChange={changeInputValue}
+                />
+                <button onClick={handleBtnClick}>提交</button>
+            </div>
+            <ul>
+                {
+                    list.map((item, index) => {
+                        return <li key={index}>{item}</li>
+                    })
+                }
+            </ul>
+        </div>
+    )
+}
+
+// 定义规则, 将store中的state映射到对象的属性中
+const mapStateToProps = (state) => {
+    return {
+        inputValue: state.inputValue,
+        list: state.list
+    }
+}
+
+// store.dispatch挂载到props上
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeInputValue(e) {
+            const action = {
+                type: "change_input_value",
+                value: e.target.value
+            }
+            dispatch(action);
+        },
+
+        handleBtnClick() {
+            const action = {
+                type: 'add_item'
+            }
+            dispatch(action);
+        }
+    }
+}
+
+// connect方法把UI组件和映射进行绑定, 生成容器组件.
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+  ```
