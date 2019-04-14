@@ -194,3 +194,10 @@ const store = createStore(reducer, enhancer);
 
 export default store;
 ```
+
+redux中间件指的是文件操作在Store和action中间, 简答来说就是给`store.dispatch()`增加一些其他的功能, 除了thunk以外, redux-logger可以记录action转发情况.  
+
+## Redux-saga中间件使用
+
+redux-thunk是将ajax请求和action放在一起, 但是如果想把ajax异步请求单独放在一块, 可以使用[redux-saga](https://github.com/redux-saga/redux-saga), 这个中间件可以把异步请求放到一个文件夹.  
+原因在于redux-saga配置完成后, 转发的action除了store能接收以外, `sagas.js`文件也能收到, 这样就可以进行处理.
